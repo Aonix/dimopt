@@ -1,0 +1,51 @@
+---
+import { BRAND } from '@/data/site';
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-seam/60 py-12">
+  <div class="mx-auto max-w-[1240px] px-5 sm:px-8">
+    <div class="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between">
+      <div>
+        <div class="flex items-baseline gap-2.5">
+          <span class="grid size-7 place-items-center rounded-[2px] border border-brass/60 font-mono text-[0.5rem] font-semibold tracking-[0.08em] text-brass">
+            {BRAND.mark}
+          </span>
+          <span class="font-mono text-[0.625rem] font-semibold uppercase tracking-[0.2em] text-chalk">
+            Surrey Elite Performance
+          </span>
+        </div>
+        <p class="mt-4 max-w-sm text-[0.75rem] leading-relaxed text-mist">
+          Private 1:1 coaching for Surrey professionals. {BRAND.facility}, plus
+          hybrid and fully remote programmes across the UK.
+        </p>
+      </div>
+
+      <address class="not-italic">
+        <p class="font-mono text-[0.5625rem] uppercase tracking-[0.16em] text-brass">Direct</p>
+        <a
+          href={`mailto:${BRAND.email}`}
+          class="mt-2.5 block text-[0.8125rem] text-chalk-dim transition-colors hover:text-chalk"
+        >
+          {BRAND.email}
+        </a>
+        <a
+          href={`tel:${BRAND.phone.replace(/\s/g, '')}`}
+          class="mt-1 block text-[0.8125rem] tabular-nums text-chalk-dim transition-colors hover:text-chalk"
+        >
+          {BRAND.phone}
+        </a>
+      </address>
+    </div>
+
+    <div class="tape-rule mt-10 h-1.5 w-full opacity-50"></div>
+
+    <div class="mt-5 flex flex-col gap-2 text-[0.6875rem] text-mist/70 sm:flex-row sm:items-center sm:justify-between">
+      <p>© {year} {BRAND.name}. Guildford, Surrey.</p>
+      <p>
+        Demonstration site — all clients, quotes, metrics and photographs shown
+        are fictional placeholder content.
+      </p>
+    </div>
+  </div>
+</footer>

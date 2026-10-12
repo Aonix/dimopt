@@ -1,0 +1,90 @@
+---
+import Qualifier from '@/islands/Qualifier';
+import { HERO, TRUST_STATS, BRAND } from '@/data/site';
+import { IMAGES } from '@/data/images';
+import { unsplash, unsplashSrcSet } from '@/lib/images';
+---
+
+<section id="hero" class="relative isolate overflow-hidden pt-[104px]">
+  <!-- Backdrop: heavily darkened so type always wins. -->
+  <div class="absolute inset-0 -z-10">
+    <img
+      src={unsplash(IMAGES.hero.id, { w: 1800, ratio: 16 / 10 })}
+      srcset={unsplashSrcSet(IMAGES.hero.id, [900, 1400, 1800, 2400], 16 / 10)}
+      sizes="100vw"
+      alt=""
+      aria-hidden="true"
+      fetchpriority="high"
+      decoding="async"
+      class="size-full object-cover object-center opacity-70"
+    />
+    <!-- Two passes: a vertical fade that lands the section into the page ground,
+         and a left-weighted wash that keeps the headline column high-contrast
+         while the photograph stays legible behind the form. -->
+    <div class="absolute inset-0 bg-gradient-to-b from-ink/55 via-ink/60 to-ink"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-ink via-ink/80 to-ink/15"></div>
+  </div>
+
+  <div class="mx-auto max-w-[1240px] px-5 pb-16 pt-12 sm:px-8 lg:pb-24 lg:pt-20">
+    <div class="grid items-start gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
+      <!-- ------- Offer ------- -->
+      <div class="reveal">
+        <p class="eyebrow flex items-center gap-2.5">
+          <span class="inline-block h-px w-6 bg-brass"></span>
+          {HERO.eyebrow}
+        </p>
+
+        <h1 class="mt-6 text-[2.4rem] leading-[1.02] tracking-[-0.03em] sm:text-[3.1rem] lg:text-[3.65rem]">
+          {HERO.headline}
+          <span class="mt-2 block font-display text-[1.55rem] font-light italic leading-[1.22] text-chalk-dim sm:text-[1.85rem] lg:text-[2rem]">
+            {HERO.headlineTail}
+          </span>
+        </h1>
+
+        <p class="mt-7 max-w-xl text-[0.9375rem] leading-[1.72] text-chalk-dim sm:text-base">
+          {HERO.sub}
+        </p>
+
+        <div class="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
+          <a href="#apply" class="btn btn-primary w-full sm:w-auto">
+            {HERO.cta}
+          </a>
+          <p class="text-xs leading-relaxed text-mist">{HERO.ctaNote}</p>
+        </div>
+
+        <!-- ------- Trust strip, set on a tape rule ------- -->
+        <div class="mt-12 max-w-xl">
+          <div class="tape-rule h-2 w-full opacity-70"></div>
+          <dl class="mt-4 grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-4">
+            {
+              TRUST_STATS.map((stat) => (
+                <div>
+                  <dt class="sr-only">{stat.label}</dt>
+                  <dd>
+                    <span class="block font-display text-[1.9rem] font-light leading-none tabular-nums text-brass">
+                      {stat.value}
+                    </span>
+                    <span class="mt-2 block text-[0.6875rem] leading-snug text-mist">
+                      {stat.label}
+                    </span>
+                  </dd>
+                </div>
+              ))
+            }
+          </dl>
+        </div>
+      </div>
+
+      <!-- ------- The qualifier, in the hero. No iframe anywhere. ------- -->
+      <div id="apply" class="reveal scroll-mt-28 lg:sticky lg:top-28">
+        <div class="mb-3 flex items-baseline justify-between gap-4">
+          <p class="eyebrow">Private application — {BRAND.intake}</p>
+          <p class="font-mono text-[0.5625rem] uppercase tracking-[0.14em] text-mist">
+            ~2 minutes
+          </p>
+        </div>
+        <Qualifier client:load />
+      </div>
+    </div>
+  </div>
+</section>

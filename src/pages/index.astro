@@ -1,0 +1,46 @@
+---
+import Base from '@/layouts/Base.astro';
+import Header from '@/components/Header.astro';
+import Hero from '@/components/Hero.astro';
+import Pillars from '@/components/Pillars.astro';
+import Transformations from '@/components/Transformations.astro';
+import Architect from '@/components/Architect.astro';
+import Whatsapp from '@/components/Whatsapp.astro';
+import Guarantee from '@/components/Guarantee.astro';
+import Faq from '@/components/Faq.astro';
+import Footer from '@/components/Footer.astro';
+import StickyApplyBar from '@/islands/StickyApplyBar';
+import { BRAND } from '@/data/site';
+---
+
+<Base
+  title="Surrey Elite Performance — Private 1:1 Coaching in Guildford, Cobham & Weybridge"
+  description="Drop 8–12kg and rebuild peak athletic energy in 90 days with 45-minute capped sessions built around a Surrey professional's diary. Private Guildford studio, hybrid and remote. 10 spaces per intake."
+>
+  <Header />
+
+  <main id="main">
+    <Hero />
+
+    <!-- The tape-measure spine: a vertical rule marking the length of the page.
+         Decorative, desktop only, and never in the way of content. -->
+    <div class="relative">
+      <div
+        class="tape-rule-v pointer-events-none absolute left-6 top-0 hidden h-full w-1.5 opacity-40 xl:block"
+        aria-hidden="true"
+      >
+      </div>
+
+      <Pillars />
+      <Transformations />
+      <Architect />
+      <Whatsapp />
+      <Guarantee />
+      <Faq />
+    </div>
+  </main>
+
+  <Footer />
+
+  <StickyApplyBar client:idle intake={BRAND.intake} spacesLeft={BRAND.spacesLeft} />
+</Base>

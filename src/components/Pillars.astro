@@ -1,0 +1,57 @@
+---
+import { PILLARS } from '@/data/site';
+---
+
+<section id="method" class="relative scroll-mt-24 border-t border-seam/60 py-20 lg:py-28">
+  <div class="mx-auto max-w-[1240px] px-5 sm:px-8">
+    <div class="reveal max-w-2xl">
+      <p class="eyebrow flex items-center gap-2.5">
+        <span class="inline-block h-px w-6 bg-brass"></span>
+        The signature framework
+      </p>
+      <h2 class="mt-5 text-[2rem] leading-[1.08] sm:text-[2.6rem]">
+        Three things, done properly, for ninety days.
+      </h2>
+      <p class="mt-5 text-[0.9375rem] leading-[1.72] text-chalk-dim">
+        Not twelve habits, not a 40-page PDF. The programme is deliberately
+        narrow because narrow is what survives a week that does not go to plan.
+      </p>
+    </div>
+
+    <div class="mt-14 grid gap-px overflow-hidden rounded-sm bg-seam/70 md:grid-cols-3">
+      {
+        PILLARS.map((pillar, i) => (
+          <article
+            class="reveal group relative flex flex-col bg-ink-2 p-7 transition-colors duration-300 hover:bg-ink-3 lg:p-8"
+            style={`transition-delay:${i * 90}ms`}
+          >
+            {/* The index is a mark on the tape, not decoration */}
+            <div class="flex items-center gap-3">
+              <span class="font-mono text-[0.625rem] font-semibold tracking-[0.2em] text-brass">
+                {pillar.index}
+              </span>
+              <span class="tape-rule h-1.5 flex-1 opacity-60 transition-opacity duration-300 group-hover:opacity-100" />
+            </div>
+
+            <h3 class="mt-6 text-[1.4rem] leading-[1.15] text-chalk">{pillar.title}</h3>
+            <p class="mt-2.5 text-[0.8125rem] font-medium leading-snug text-brass">
+              {pillar.strap}
+            </p>
+
+            <p class="mt-5 flex-1 text-[0.875rem] leading-[1.75] text-chalk-dim">
+              {pillar.body}
+            </p>
+
+            <ul class="mt-7 flex flex-wrap gap-2">
+              {pillar.marks.map((mark) => (
+                <li class="rounded-[2px] border border-seam px-2.5 py-1 font-mono text-[0.5625rem] uppercase tracking-[0.12em] text-mist">
+                  {mark}
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

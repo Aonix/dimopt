@@ -1,0 +1,45 @@
+---
+import { BRAND } from '@/data/site';
+---
+
+<header class="fixed inset-x-0 top-0 z-40">
+  <!-- Availability ticker. Sits above the nav so it reads first. -->
+  <div class="border-b border-seam/70 bg-claret/95 backdrop-blur-md">
+    <div class="mx-auto flex max-w-[1240px] items-center justify-center gap-2.5 px-5 py-2 text-center">
+      <span class="relative flex size-1.5 shrink-0">
+        <span class="absolute inline-flex size-full animate-ping rounded-full bg-chalk opacity-70"></span>
+        <span class="relative inline-flex size-1.5 rounded-full bg-chalk"></span>
+      </span>
+      <p class="font-mono text-[0.5625rem] font-semibold uppercase leading-tight tracking-[0.16em] text-chalk sm:text-[0.625rem]">
+        <span class="tnum">{BRAND.spacesLeft} / {BRAND.spacesTotal}</span> private coaching spaces remaining
+        {' '}<span class="hidden sm:inline">— Surrey &amp; virtual hybrid</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="border-b border-seam/60 bg-ink/85 backdrop-blur-xl">
+    <div class="mx-auto flex max-w-[1240px] items-center justify-between px-5 py-3.5 sm:px-8">
+      <a href="#hero" class="group flex items-baseline gap-2.5">
+        <span
+          class="grid size-7 shrink-0 place-items-center rounded-[2px] border border-brass/60 font-mono text-[0.5rem] font-semibold tracking-[0.08em] text-brass transition-colors group-hover:border-brass"
+        >
+          {BRAND.mark}
+        </span>
+        <span class="font-mono text-[0.625rem] font-semibold uppercase leading-none tracking-[0.2em] text-chalk">
+          Surrey Elite<span class="hidden text-mist sm:inline"> Performance</span>
+        </span>
+      </a>
+
+      <nav class="hidden items-center gap-8 md:flex" aria-label="Primary">
+        <a href="#method" class="text-[0.8125rem] font-medium text-chalk-dim transition-colors hover:text-chalk">Method</a>
+        <a href="#results" class="text-[0.8125rem] font-medium text-chalk-dim transition-colors hover:text-chalk">Results</a>
+        <a href="#architect" class="text-[0.8125rem] font-medium text-chalk-dim transition-colors hover:text-chalk">The coach</a>
+        <a href="#faq" class="text-[0.8125rem] font-medium text-chalk-dim transition-colors hover:text-chalk">Questions</a>
+      </nav>
+
+      <a href="#apply" class="btn btn-primary px-4 py-2 text-[0.8125rem] sm:px-5">
+        Apply
+      </a>
+    </div>
+  </div>
+</header>

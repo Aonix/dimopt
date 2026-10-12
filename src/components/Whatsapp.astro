@@ -1,0 +1,70 @@
+---
+import { WHATSAPP_THREADS } from '@/data/site';
+import { CheckCheck } from '@lucide/astro';
+---
+
+<section class="border-t border-seam/60 py-20 lg:py-28">
+  <div class="mx-auto max-w-[1240px] px-5 sm:px-8">
+    <div class="grid gap-12 lg:grid-cols-[1fr_1.05fr] lg:items-center lg:gap-16">
+      <div class="reveal">
+        <p class="eyebrow flex items-center gap-2.5">
+          <span class="inline-block h-px w-6 bg-brass"></span>
+          Unedited
+        </p>
+        <h2 class="mt-5 text-[2rem] leading-[1.08] sm:text-[2.5rem]">
+          The messages that arrive at 6am.
+        </h2>
+        <p class="mt-5 max-w-lg text-[0.9375rem] leading-[1.72] text-chalk-dim">
+          Every client has a direct line to me — not a support inbox, not a
+          chatbot, not a junior. This is what the ninety days actually sounds
+          like from the inside.
+        </p>
+
+        <a href="#apply" class="btn btn-ghost mt-8">Apply for a private space</a>
+      </div>
+
+      <div class="reveal grid gap-5 sm:grid-cols-2 lg:gap-6">
+        {
+          WHATSAPP_THREADS.map((thread, i) => (
+            <figure
+              class="overflow-hidden rounded-md border border-seam bg-ink-2 shadow-[0_18px_50px_-24px_rgba(0,0,0,0.9)]"
+              style={`transition-delay:${i * 110}ms`}
+            >
+              <figcaption class="flex items-center gap-2.5 border-b border-seam bg-ink-3 px-3.5 py-2.5">
+                <span class="grid size-6 shrink-0 place-items-center rounded-full bg-brass/20 font-mono text-[0.5rem] font-semibold text-brass">
+                  {thread.contact.slice(0, 2).toUpperCase()}
+                </span>
+                <span class="min-w-0 flex-1">
+                  <span class="block truncate text-[0.6875rem] font-semibold leading-tight text-chalk">
+                    {thread.contact}
+                  </span>
+                  <span class="block text-[0.5625rem] leading-tight text-mist">{thread.time}</span>
+                </span>
+              </figcaption>
+
+              <div class="flex flex-col gap-2 p-3.5">
+                {thread.messages.map((msg) => (
+                  <div
+                    class={`max-w-[86%] rounded-lg px-3 py-2 ${
+                      msg.from === 'client'
+                        ? 'self-start rounded-bl-sm bg-ink-3'
+                        : 'self-end rounded-br-sm bg-claret/35'
+                    }`}
+                  >
+                    <p class="text-[0.75rem] leading-[1.5] text-chalk">{msg.text}</p>
+                    <p class="mt-1 flex items-center justify-end gap-1 font-mono text-[0.5rem] tabular-nums text-mist">
+                      {msg.time}
+                      {msg.from === 'coach' && (
+                        <CheckCheck size={10} class="text-brass" aria-hidden="true" />
+                      )}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </figure>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

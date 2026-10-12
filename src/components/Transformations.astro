@@ -1,0 +1,107 @@
+---
+import BeforeAfter from '@/islands/BeforeAfter';
+import { TRANSFORMATIONS } from '@/data/site';
+import { IMAGES } from '@/data/images';
+import { unsplash } from '@/lib/images';
+
+/* Each case study draws a distinct pair from the verified image pool. */
+const pairs = TRANSFORMATIONS.map((client, i) => {
+  const before = IMAGES.transformations[i * 2];
+  const after = IMAGES.transformations[i * 2 + 1];
+  return { client, before, after };
+});
+---
+
+<section id="results" class="scroll-mt-24 border-t border-seam/60 py-20 lg:py-28">
+  <div class="mx-auto max-w-[1240px] px-5 sm:px-8">
+    <div class="reveal flex flex-wrap items-end justify-between gap-6">
+      <div class="max-w-2xl">
+        <p class="eyebrow flex items-center gap-2.5">
+          <span class="inline-block h-px w-6 bg-brass"></span>
+          The transformation wall
+        </p>
+        <h2 class="mt-5 text-[2rem] leading-[1.08] sm:text-[2.6rem]">
+          Measured on the tape, not in the caption.
+        </h2>
+      </div>
+      <p class="max-w-xs text-[0.8125rem] leading-relaxed text-mist">
+        Drag each photograph to compare. Every figure below is the number that
+        was on the scales, taken under the same conditions.
+      </p>
+    </div>
+
+    <div class="mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-7">
+      {
+        pairs.map(({ client, before, after }, i) => (
+          <article
+            class="reveal flex flex-col overflow-hidden rounded-sm border border-seam bg-ink-2"
+            style={`transition-delay:${i * 90}ms`}
+          >
+            {before && after && (
+              <BeforeAfter
+                client:visible
+                beforeSrc={unsplash(before.id, { w: 800, ratio: 4 / 5 })}
+                afterSrc={unsplash(after.id, { w: 800, ratio: 4 / 5 })}
+                beforeAlt={client.beforeAlt}
+                afterAlt={client.afterAlt}
+                label={`Compare ${client.name}'s before and after photographs`}
+              />
+            )}
+
+            <div class="flex flex-1 flex-col p-5 lg:p-6">
+              <div class="flex items-baseline justify-between gap-3">
+                <h3 class="font-display text-[1.25rem] leading-none text-chalk">
+                  {client.name}
+                </h3>
+                <span class="font-mono text-[0.5625rem] uppercase tracking-[0.14em] text-brass">
+                  {client.town}
+                </span>
+              </div>
+
+              <p class="mt-1.5 text-[0.75rem] text-mist">
+                {client.age} · {client.role}
+              </p>
+
+              {/* Metrics laid out like a measurement docket */}
+              <dl class="mt-5 grid grid-cols-3 gap-px overflow-hidden rounded-sm bg-seam/70">
+                <div class="bg-ink px-3 py-3">
+                  <dt class="font-mono text-[0.5rem] uppercase tracking-[0.12em] text-mist">Start</dt>
+                  <dd class="mt-1.5 font-display text-[1.0625rem] leading-none tabular-nums text-chalk-dim">
+                    {client.startKg.toFixed(1)}<span class="text-[0.6875rem] text-mist">kg</span>
+                  </dd>
+                </div>
+                <div class="bg-ink px-3 py-3">
+                  <dt class="font-mono text-[0.5rem] uppercase tracking-[0.12em] text-mist">Finish</dt>
+                  <dd class="mt-1.5 font-display text-[1.0625rem] leading-none tabular-nums text-brass">
+                    {client.endKg.toFixed(1)}<span class="text-[0.6875rem] text-brass/70">kg</span>
+                  </dd>
+                </div>
+                <div class="bg-ink px-3 py-3">
+                  <dt class="font-mono text-[0.5rem] uppercase tracking-[0.12em] text-mist">Weeks</dt>
+                  <dd class="mt-1.5 font-display text-[1.0625rem] leading-none tabular-nums text-chalk-dim">
+                    {client.weeks}
+                  </dd>
+                </div>
+              </dl>
+
+              <p class="mt-3 font-mono text-[0.5625rem] uppercase tracking-[0.12em] text-mist">
+                Net −{(client.startKg - client.endKg).toFixed(1)}kg
+              </p>
+
+              <blockquote class="mt-5 flex-1 border-l border-brass/50 pl-4">
+                <p class="font-display text-[0.9375rem] font-light italic leading-[1.7] text-chalk-dim">
+                  “{client.quote}”
+                </p>
+              </blockquote>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    <p class="reveal mt-8 text-[0.6875rem] leading-relaxed text-mist/70">
+      Individual results vary. Photographs and figures shown are illustrative
+      demonstration content for this design.
+    </p>
+  </div>
+</section>

@@ -1,0 +1,185 @@
+@import 'tailwindcss';
+
+/* ============================================================
+   SURREY ELITE PERFORMANCE — design tokens
+   Direction: the bespoke tailoring house. A programme is cut to
+   measure, adjusted at fittings, and judged on the tape.
+   Palette is worsted cloth, tailor's chalk, oxblood lining silk
+   and antique brass — deliberately not the near-black/acid-accent
+   default that dark landing pages fall into.
+   ============================================================ */
+@theme {
+  /* Cloth */
+  --color-ink: #0c0f16;        /* deepest worsted — page ground */
+  --color-ink-2: #11151f;      /* raised panel */
+  --color-ink-3: #171c28;      /* card face */
+  --color-seam: #232a3a;       /* hairline / seam */
+
+  /* Chalk */
+  --color-chalk: #ece7dd;      /* primary text — tailor's chalk, warm */
+  --color-chalk-dim: #b9b3a8;  /* secondary text */
+  --color-mist: #7d8698;       /* tertiary / meta */
+
+  /* Lining silk + hardware */
+  --color-claret: #8a2438;     /* accent — oxblood lining */
+  --color-claret-lift: #a62d44;/* accent hover */
+  --color-brass: #b08d4f;      /* hardware, rules, numerals */
+  --color-brass-lift: #d4ad68;
+
+  --font-display: 'Newsreader', ui-serif, Georgia, serif;
+  --font-body: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Martian Mono', ui-monospace, 'SFMono-Regular', monospace;
+
+  --ease-cloth: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    background-color: var(--color-ink);
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* Lenis drives scrolling; native smooth-scroll would fight it. */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  body {
+    background-color: var(--color-ink);
+    color: var(--color-chalk);
+    font-family: var(--font-body);
+    font-synthesis-weight: none;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background-color: var(--color-claret);
+    color: var(--color-chalk);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brass-lift);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  p { text-wrap: pretty; }
+
+  /* Numbers are measurements here — always aligned, never jittering. */
+  .tnum { font-variant-numeric: tabular-nums; }
+}
+
+@layer components {
+  /* --- Eyebrow: the chalk annotation on a pattern piece --- */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-brass);
+  }
+
+  /* --- The signature: a tape-measure rule ---
+     Ticks every 12px, a long tick every 60px. Used as the page spine,
+     under section headings, and as the form's progress track. */
+  .tape-rule {
+    background-image:
+      repeating-linear-gradient(
+        to right,
+        var(--color-seam) 0 1px,
+        transparent 1px 12px
+      );
+    background-repeat: repeat-x;
+  }
+
+  .tape-rule-v {
+    background-image:
+      repeating-linear-gradient(
+        to bottom,
+        var(--color-seam) 0 1px,
+        transparent 1px 12px
+      );
+    background-repeat: repeat-y;
+  }
+
+  /* --- Buttons --- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    letter-spacing: 0.01em;
+    padding: 1rem 1.75rem;
+    border-radius: 2px;
+    transition:
+      background-color 220ms var(--ease-cloth),
+      color 220ms var(--ease-cloth),
+      border-color 220ms var(--ease-cloth),
+      transform 220ms var(--ease-cloth);
+  }
+  .btn:active { transform: translateY(1px); }
+
+  .btn-primary {
+    background-color: var(--color-claret);
+    color: var(--color-chalk);
+    border: 1px solid var(--color-claret);
+  }
+  .btn-primary:hover:not(:disabled) {
+    background-color: var(--color-claret-lift);
+    border-color: var(--color-claret-lift);
+  }
+  .btn-primary:disabled { opacity: 0.45; cursor: not-allowed; }
+
+  .btn-ghost {
+    background-color: transparent;
+    color: var(--color-chalk);
+    border: 1px solid var(--color-seam);
+  }
+  .btn-ghost:hover:not(:disabled) {
+    border-color: var(--color-brass);
+    color: var(--color-brass-lift);
+  }
+  .btn-ghost:disabled { opacity: 0.35; cursor: not-allowed; }
+
+  /* --- Scroll reveal ---
+     Armed by an inline head script, so if JS never runs the content is simply
+     visible rather than stuck at opacity 0. One shared observer. */
+  .js-reveal .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 700ms var(--ease-cloth),
+      transform 700ms var(--ease-cloth);
+  }
+  .js-reveal .reveal.is-in {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .js-reveal .reveal { opacity: 1; transform: none; }
+}
